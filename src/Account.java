@@ -52,4 +52,5 @@ class Account {
     }
     
     public void calculateInterest(){};
+    public void monthEndSummary(){};
 }
