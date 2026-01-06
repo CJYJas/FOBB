@@ -29,9 +29,20 @@ public class SavingsAccount extends Account {
         return interestRate;
     }
 
-    // Calculate the interest amount based on current balance
-    public double calculateInterestAmount() {
-        return getBalance() * interestRate;
+    // Implement the interest formula and validation
+    @Override
+    public void calculateInterest() {
+        // Validation check
+        if (getBalance() > 0) {
+            double interest = getBalance() * interestRate;
+            
+            // Update balance safely using inherited setter
+            setBalance(getBalance() + interest);
+            
+            System.out.printf("Interest Calculated: RM%.2f | New Balance: RM%.2f%n", interest, getBalance());
+        } else {
+            System.out.println("No interest applied (Balance is not positive).");
+        }
     }
 
     // Withdraw money with minimum balance checking
@@ -58,21 +69,16 @@ public class SavingsAccount extends Account {
         super.deposit(amount);
     }
 
-    // Apply monthly interest if balance is positive
-    public void applyMonthlyInterest() {
-        if (getBalance() > 0) {
-            double interest = calculateInterestAmount();
-            setBalance(getBalance() + interest);
-            System.out.printf("Interest added RM%.2f%n", interest);
-        } else {
-            System.out.println("No interest applied. ");
-        }
-    }
-
-    // Display summary at the end of the month
-    public void endOfMonth() {
-        System.out.println("\nSavings Account Month-End Summary:");
-        applyMonthlyInterest();
-        System.out.printf("Balance: RM%.2f%n", getBalance());
+ 
+    // "Month-End" method to print summary
+    public void printMonthEndSummary() {
+        System.out.println("\n--- Savings Account Month-End Summary ---");
+        System.out.println("Account Holder: " + getAccountHolder());
+        
+        // Calculate and apply the interest
+        calculateInterest(); 
+        
+        System.out.printf("Final Month-End Balance: RM%.2f%n", getBalance());
+        System.out.println("-----------------------------------------");
     }
 }
