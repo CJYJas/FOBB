@@ -71,7 +71,8 @@ public class SavingsAccount extends Account {
 
  
     // "Month-End" method to print summary
-    public void printMonthEndSummary() {
+    @Override
+    public void monthEndSummary() {
         System.out.println("\n--- Savings Account Month-End Summary ---");
         System.out.println("Account Holder: " + getAccountHolder());
         
@@ -82,3 +83,4 @@ public class SavingsAccount extends Account {
         System.out.println("-----------------------------------------");
     }
 }
+
