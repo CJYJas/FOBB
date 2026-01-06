@@ -51,5 +51,5 @@ class Account {
         }
     }
     
-    public static void calculateInterest(){};
+    public void calculateInterest(){};
 }
