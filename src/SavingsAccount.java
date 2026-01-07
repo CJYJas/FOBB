@@ -1,0 +1,82 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+/**
+ *
+ * @author Jasmine Chin
+ */
+// SavingsAccount class inherits from Account
+public class SavingsAccount extends Account {
+
+    // Interest rate for the savings account
+    private final double interestRate;
+
+    // Minimum balance that must be maintained
+    private final double minimumBalance;
+
+    // Constructor to initialize savings account details
+    public SavingsAccount(String accountNumber, String accountHolder, double balance, double interestRate, double minimumBalance) {
+        super(accountNumber, accountHolder, balance);
+        this.interestRate = interestRate;
+        this.minimumBalance = minimumBalance;
+    }
+
+    // Getter method to return the interest rate
+    public double getInterestRate() {
+        return interestRate;
+    }
+
+    // Implement the interest formula and validation
+
+    @Override
+    public void calculateInterest() {
+        // Validation check
+        if (getBalance() > 0) {
+            double interest = getBalance() * interestRate;
+            
+            // Update balance safely using inherited setter
+            setBalance(getBalance() + interest);
+            
+            System.out.printf("Interest Calculated: RM%.2f | New Balance: RM%.2f%n", interest, getBalance());
+        } else {
+            System.out.println("No interest applied (Balance is not positive).");
+        }
+    }
+
+    // Withdraw money with minimum balance checking
+    @Override
+    public void withdraw(double amount) {
+        if (amount <= 0) {
+            System.out.println("Savings withdrawal failed. Amount must be positive.");
+        }
+
+        // Check if balance after withdrawal is still above minimum balance
+        if (getBalance() - amount >= minimumBalance) {
+            setBalance(getBalance() - amount);
+            System.out.printf("Savings withdrawal RM%.2f%n", amount);
+        } else {
+            System.out.println("Savings withdrawal failed.");
+        }
+    }
+
+    // Deposit money into the savings account
+    @Override
+    public void deposit(double amount) {
+        super.deposit(amount);
+    }
+
+ 
+    @Override
+    public void monthEndSummary() {
+        System.out.println("\n--- Savings Account Month-End Summary ---");
+        System.out.println("Account Holder: " + getAccountHolder());
+        
+        // Calculate and apply the interest
+        calculateInterest(); 
+        
+        System.out.printf("Final Month-End Balance: RM%.2f%n", getBalance());
+        System.out.println("-----------------------------------------");
+    }
+}
+
