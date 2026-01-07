@@ -51,6 +51,7 @@ class Account {
         }
     }
     
+    public void withdraw(double amount){};
     public void calculateInterest(){};
     public void monthEndSummary(){};
 }

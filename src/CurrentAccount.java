@@ -1,4 +1,3 @@
-
 class CurrentAccount extends Account{
     private double overdraftLimit;
     private double transactionFee;
@@ -18,12 +17,14 @@ class CurrentAccount extends Account{
         System.out.println("No Interest Rate for Current Account");
     }
     
+    @Override
     public void withdraw(double amount) {
-        if (getBalance() + overdraftLimit >= (amount + transactionFee)) {
-            double newBalance = getBalance() - amount - transactionFee;
-            setBalance(newBalance); 
+        double totalDeduction = amount + transactionFee;
+        if (getBalance() - totalDeduction < - overdraftLimit) {
+            System.out.println("Transaction Rejected: Overdraft limit exceeded.");
         } else {
-            System.out.println("Transaction rejected: Overdraft limit exceeded.");
+            setBalance(getBalance() - totalDeduction);
+            System.out.println("Withdrawn: " + amount + " (Fee: " + transactionFee + ")");
         }
     }
     

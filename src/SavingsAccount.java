@@ -1,14 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package com.fobb.bankingsystem;
-
-/**
- *
- * @author Jasmine Chin
- */
-// SavingsAccount class inherits from Account
 public class SavingsAccount extends Account {
 
     // Interest rate for the savings account
@@ -44,22 +33,14 @@ public class SavingsAccount extends Account {
             System.out.println("No interest applied (Balance is not positive).");
         }
     }
-
-    // Withdraw money with minimum balance checking
-    public boolean withdraw(double amount) {
-        if (amount <= 0) {
-            System.out.println("Savings withdrawal failed. Amount must be positive.");
-            return false;
-        }
-
-        // Check if balance after withdrawal is still above minimum balance
-        if (getBalance() - amount >= minimumBalance) {
-            setBalance(getBalance() - amount);
-            System.out.printf("Savings withdrawal RM%.2f%n", amount);
-            return true;
+    
+    @Override
+    public void withdraw(double amount) {
+        if (getBalance() - amount < minimumBalance) {
+            System.out.println("Transaction Rejected: Below minimum balance of " + minimumBalance);
         } else {
-            System.out.println("Savings withdrawal failed.");
-            return false;
+            setBalance(getBalance() - amount);
+            System.out.println("Withdrawn: " + amount);
         }
     }
 
