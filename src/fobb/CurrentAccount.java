@@ -19,18 +19,20 @@ class CurrentAccount extends Account{
         System.out.println("No Interest Rate for Current Account");
     }
     
+    @Override
     public void withdraw(double amount) {
-        if (getBalance() + overdraftLimit >= (amount + transactionFee)) {
-            double newBalance = getBalance() - amount - transactionFee;
-            setBalance(newBalance); 
+        double totalDeduction = amount + transactionFee;
+        if (getBalance() - totalDeduction < - overdraftLimit) {
+            System.out.println("Transaction Rejected: Overdraft limit exceeded.");
         } else {
-            System.out.println("Transaction rejected: Overdraft limit exceeded.");
+            setBalance(getBalance() - totalDeduction);
+            System.out.printf("Withdrawn: RM%.2f (Fee: RM%.2f)%n", amount, transactionFee);
         }
     }
     
     public void monthEndSummary() {
         System.out.println("--- Current Account Month-End Summary ---");
         System.out.println("Account Holder: " + getAccountHolder());
-        System.out.println("Final Balance (Fees Applied): " + getBalance());
+        System.out.printf("Final Balance (Fees Applied): RM%.2f%n", getBalance());
     }
 }

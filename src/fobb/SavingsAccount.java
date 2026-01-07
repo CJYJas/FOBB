@@ -7,10 +7,10 @@ package fobb;
 public class SavingsAccount extends Account {
 
     // Interest rate for the savings account
-    private final double interestRate;
+    private double interestRate;
 
     // Minimum balance that must be maintained
-    private final double minimumBalance;
+    private double minimumBalance;
 
     // Constructor to initialize savings account details
     public SavingsAccount(String accountNumber, String accountHolder, double balance, double interestRate, double minimumBalance) {
@@ -39,20 +39,14 @@ public class SavingsAccount extends Account {
             System.out.println("No interest applied (Balance is not positive).");
         }
     }
-
-    // Withdraw money with minimum balance checking
+    
     @Override
     public void withdraw(double amount) {
-        if (amount <= 0) {
-            System.out.println("Savings withdrawal failed. Amount must be positive.");
-        }
-
-        // Check if balance after withdrawal is still above minimum balance
-        if (getBalance() - amount >= minimumBalance) {
-            setBalance(getBalance() - amount);
-            System.out.printf("Savings withdrawal RM%.2f%n", amount);
+        if (getBalance() - amount < minimumBalance) {
+            System.out.printf("Transaction Rejected: Below minimum balance of RM%.2f%n", minimumBalance);
         } else {
-            System.out.println("Savings withdrawal failed.");
+            setBalance(getBalance() - amount);
+            System.out.printf("Withdrawn: RM%.2f%n", amount);
         }
     }
 
@@ -61,7 +55,6 @@ public class SavingsAccount extends Account {
     public void deposit(double amount) {
         super.deposit(amount);
     }
-
  
     // "Month-End" method to print summary
     @Override
@@ -76,3 +69,4 @@ public class SavingsAccount extends Account {
         System.out.println("-----------------------------------------");
     }
 }
+

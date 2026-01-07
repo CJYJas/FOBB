@@ -27,7 +27,7 @@ public class BankingSystem {
         for (Account acc : accounts) 
             acc.deposit(200);
 
-        System.out.println("Withdrawal");
+        System.out.println("\nWithdrawal");
         // Test Savings: Attempt to overdraw below minimum balance
         savings.withdraw(1200); 
         

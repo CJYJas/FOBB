@@ -47,7 +47,7 @@ class Account {
     public void deposit(double amount){
         if (amount > 0) {
             balance += amount;
-            System.out.println("Deposited: $" + amount + " | New Balance: $" + balance);
+            System.out.println("Deposited: RM" + amount + " | New Balance: RM" + balance);
         } else {
             System.out.println("Error: Deposit amount must be positive.");
         }
